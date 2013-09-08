@@ -34,6 +34,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     sensors.exynos4
 
+#Prebuilt dual-boot kernel for CM10.2 / FirefoOS (_AtilA_)
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+    LOCAL_KERNEL := device/samsung/galaxys2/kernel
+else
+    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
