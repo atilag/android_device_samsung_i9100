@@ -36,7 +36,7 @@ PRODUCT_PACKAGES += \
 
 #Prebuilt dual-boot kernel for CM10.2 / FirefoOS (_AtilA_)
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/samsung/galaxys2/kernel
+    LOCAL_KERNEL := device/samsung/i9100/kernel
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
