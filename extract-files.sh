@@ -20,17 +20,23 @@ DEVICEOUTDIR=vendor/$VENDOR/$DEVICE
 DEVICEBASE=../../../$DEVICEOUTDIR/proprietary
 DEVICEMAKEFILE=../../../$DEVICEOUTDIR/$DEVICE-vendor-blobs.mk
 COMMONPROPS=../galaxys2-common/proprietary-files.txt
-adb root
-adb wait-for-device
 
-echo "Pulling device specific files..."
-for FILE in `cat proprietary-files.txt | grep -v ^# | grep -v ^$`; do
-    DIR=`dirname $FILE`
-    if [ ! -d $DEVICEBASE/$DIR ]; then
-        mkdir -p $DEVICEBASE/$DIR
-    fi
-    adb pull /$FILE $DEVICEBASE/$FILE
-done
+
+if [ -d ${DEVICEBASE} ]; then
+    echo "Already pulled files found. Skipping pull..."
+else
+    adb root
+    adb wait-for-device
+
+    echo "Pulling device specific files..."
+    for FILE in `cat proprietary-files.txt | grep -v ^# | grep -v ^$`; do
+        DIR=`dirname $FILE`
+        if [ ! -d $DEVICEBASE/$DIR ]; then
+            mkdir -p $DEVICEBASE/$DIR
+        fi
+        adb pull /$FILE $DEVICEBASE/$FILE
+    done
+fi
 
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__VENDOR__/$VENDOR/g > $DEVICEMAKEFILE
