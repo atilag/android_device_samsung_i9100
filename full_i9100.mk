@@ -22,6 +22,9 @@
 #
 
 # Inherit from those products. Most specific first.
+
+PRODUCT_COPY_FILES := device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/samsung/i9100/i9100.mk)
 
